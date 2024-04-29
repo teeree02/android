@@ -163,7 +163,7 @@
 
         <Button
             android:id="@+id/buttonSubmit"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
@@ -171,10 +171,18 @@
 
         <Button
             android:id="@+id/viewAll"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="View" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit" />
+
     </LinearLayout>
 
 </RelativeLayout>
