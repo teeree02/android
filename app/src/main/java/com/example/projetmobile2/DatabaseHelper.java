@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (idRestaurant INTEGER PRIMARY KEY AUTOINCREMENT,nomRestaurant TEXT,adresseRestaurant TEXT,qualitePlats TEXT,qualiteService TEXT,prixMoyen REAL,nbEtoiles INTEGER)");
+        db.execSQL("create table " + TABLE_NAME + " (idRestaurant INTEGER PRIMARY KEY ,nomRestaurant TEXT,adresseRestaurant TEXT,qualitePlats TEXT,qualiteService TEXT,prixMoyen REAL,nbEtoiles INTEGER)");
     }
 
     @Override

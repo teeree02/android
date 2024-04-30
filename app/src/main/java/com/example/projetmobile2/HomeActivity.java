@@ -91,17 +91,12 @@ public class HomeActivity extends AppCompatActivity {
             editTextPlat.setText(restaurantQualitePlats);
             String restaurantQualiteService = intent.getStringExtra("restaurant_qualite_service");
             editTextService.setText(restaurantQualiteService);
-            double restaurantPrixMoyen = intent.getDoubleExtra("restaurant_prix_moyen", 0.0);
-                seekBar.setProgress((int) restaurantPrixMoyen);
-            int restaurantNbEtoiles = intent.getIntExtra("restaurant_nb_etoiles", 0);
-                ratingBar.setRating(restaurantNbEtoiles);
-            buttonAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myDB.updateRestaurantById(Integer.parseInt(restaurantId),new Restaurant(Integer.parseInt(restaurantId),editTextNom.getText().toString(),editTextAdresse.getText().toString(),editTextPlat.getText().toString(),editTextService.getText().toString(),0,0));
-                    Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see chan,ges", Toast.LENGTH_LONG).show();
+            buttonAdd.setOnClickListener(v -> {
+                double restaurantPrixMoyen  = (float) seekBar.getProgress() / seekBar.getMax();
+                int restaurantNbEtoiles = (int) ratingBar.getRating();
+                myDB.updateRestaurantById(Integer.parseInt(restaurantId),new Restaurant(Integer.parseInt(restaurantId),editTextNom.getText().toString(),editTextAdresse.getText().toString(),editTextPlat.getText().toString(),editTextService.getText().toString(), (float) restaurantPrixMoyen,restaurantNbEtoiles));
+                Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see chan,ges", Toast.LENGTH_LONG).show();
 
-                }
             });
 
         }
