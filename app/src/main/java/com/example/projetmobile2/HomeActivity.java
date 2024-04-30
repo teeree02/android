@@ -12,13 +12,13 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class MainActivity2 extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private DatabaseHelper myDB;
     private EditText editTextNom, editTextAdresse, editTextService, editTextPlat;
     private RatingBar ratingBar;
     private SeekBar seekBar;
-    private Button buttonAdd, buttonViewAll, btnEdit;
+    private Button buttonAdd, buttonViewAll;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -39,9 +39,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         buttonAdd = findViewById(R.id.buttonSubmit);
         buttonViewAll = findViewById(R.id.viewAll);
-        btnEdit = findViewById(R.id.btnEdit);
-
-        btnEdit.setVisibility(View.GONE);
+        buttonAdd.setText("Submit");
 
 
         // Add data on button click
@@ -62,11 +60,11 @@ public class MainActivity2 extends AppCompatActivity {
                 boolean isInserted = myDB.insertData(restaurant);
 
                 if (isInserted) {
-                    Toast.makeText(MainActivity2.this, "Restaurant Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, "Restaurant Inserted", Toast.LENGTH_LONG).show();
                     // Clear edit texts after successful insertion
                     clearEditTexts();
                 } else {
-                    Toast.makeText(MainActivity2.this, "Restaurant Not Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeActivity.this, "Restaurant Not Inserted", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -77,13 +75,13 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start DisplayDataActivity to show the data in a ListView (implementation needed)
-                Intent intent = new Intent(MainActivity2.this, MainActivity4.class); // Modify class name if needed
+                Intent intent = new Intent(HomeActivity.this, RestaurantActivity.class); // Modify class name if needed
                 startActivity(intent);
             }
         });
         Intent intent = getIntent();
         if (intent.getStringExtra("restaurant_id") != null) {
-            btnEdit.setVisibility(View.VISIBLE);
+            buttonAdd.setText("Edit");
             String restaurantId= intent.getStringExtra("restaurant_id");
             String restaurantName = intent.getStringExtra("restaurant_name");
             editTextNom.setText(restaurantName);
@@ -93,15 +91,15 @@ public class MainActivity2 extends AppCompatActivity {
             editTextPlat.setText(restaurantQualitePlats);
             String restaurantQualiteService = intent.getStringExtra("restaurant_qualite_service");
             editTextService.setText(restaurantQualiteService);
-            /*double restaurantPrixMoyen = intent.getDoubleExtra("restaurant_prix_moyen", 0.0);
-                seekBar.setProgress();
-            int restaurantNbEtoiles = intent.getIntExtra("restaurant_nb_etoiles", 0);*/
-
-            btnEdit.setOnClickListener(new View.OnClickListener() {
+            double restaurantPrixMoyen = intent.getDoubleExtra("restaurant_prix_moyen", 0.0);
+                seekBar.setProgress((int) restaurantPrixMoyen);
+            int restaurantNbEtoiles = intent.getIntExtra("restaurant_nb_etoiles", 0);
+                ratingBar.setRating(restaurantNbEtoiles);
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     myDB.updateRestaurantById(Integer.parseInt(restaurantId),new Restaurant(Integer.parseInt(restaurantId),editTextNom.getText().toString(),editTextAdresse.getText().toString(),editTextPlat.getText().toString(),editTextService.getText().toString(),0,0));
-                    btnEdit.setVisibility(View.GONE);
+                    Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see chan,ges", Toast.LENGTH_LONG).show();
 
                 }
             });

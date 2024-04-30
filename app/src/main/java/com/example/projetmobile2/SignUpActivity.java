@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     private Button button;
     private EditText editTextNom;
     private EditText editTextPrenom;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         String nom = editTextNom.getText().toString();
         String prenom = editTextPrenom.getText().toString();
 
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("nom: ", nom);
         intent.putExtra("prenom: ", prenom);
         startActivity(intent);

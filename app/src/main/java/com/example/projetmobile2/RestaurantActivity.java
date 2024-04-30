@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
-public class MainActivity4 extends AppCompatActivity implements CustomViewAdapter.OnItemClickListener {
+public class RestaurantActivity extends AppCompatActivity implements CustomViewAdapter.OnItemClickListener {
     RecyclerView recyclerView;
+    Button goHome;
     ArrayList<Restaurant> restaurantNames;
     CustomViewAdapter customViewAdapter;
 
@@ -29,9 +32,18 @@ public class MainActivity4 extends AppCompatActivity implements CustomViewAdapte
     }
 
     private void displayItems() {
+        goHome = findViewById(R.id.gohome);
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantActivity.this, HomeActivity.class));
+
+            }
+        });
 
         // Get data from DatabaseHelper
 
@@ -64,7 +76,7 @@ public class MainActivity4 extends AppCompatActivity implements CustomViewAdapte
         builder.setMessage(restaurant.toString());
 
         builder.setPositiveButton("EDIT", (dialog, which) -> {
-            Intent intent = new Intent(this, MainActivity2.class);
+            Intent intent = new Intent(this, HomeActivity.class);
 
             // Put restaurant data as extras in the intent
             intent.putExtra("restaurant_id", String.valueOf(restaurant.getId()));
