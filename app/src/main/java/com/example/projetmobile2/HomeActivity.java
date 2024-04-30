@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
                 double restaurantPrixMoyen  = (float) seekBar.getProgress() / seekBar.getMax();
                 int restaurantNbEtoiles = (int) ratingBar.getRating();
                 myDB.updateRestaurantById(Integer.parseInt(restaurantId),new Restaurant(Integer.parseInt(restaurantId),editTextNom.getText().toString(),editTextAdresse.getText().toString(),editTextPlat.getText().toString(),editTextService.getText().toString(), (float) restaurantPrixMoyen,restaurantNbEtoiles));
-                Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see chan,ges", Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see changes", Toast.LENGTH_LONG).show();
 
             });
 
