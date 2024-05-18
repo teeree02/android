@@ -22,16 +22,15 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "id=" + id +
-                ", nomRestaurant='" + nomRestaurant + '\'' +
-                ", adresseRestaurant='" + adresseRestaurant + '\'' +
-                ", qualitePlats='" + qualitePlats + '\'' +
-                ", qualiteService='" + qualiteService + '\'' +
-                ", prixMoyen=" + prixMoyen +
-                ", nbEtoiles=" + nbEtoiles +
-                '}';
+        return "id= " + id + "\n" +
+                ", nomRestaurant= " + nomRestaurant + '\'' + "\n" +
+                ", adresseRestaurant= " + adresseRestaurant + '\'' + "\n" +
+                ", qualitePlats= " + qualitePlats + '\'' + "\n" +
+                ", qualiteService= " + qualiteService + '\'' + "\n" +
+                ", prixMoyen= " + prixMoyen + "\n" +
+                ", nbEtoiles= " + nbEtoiles ;
     }
+
 
     public int getId() {
         return id;

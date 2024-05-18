@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,9 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        myDB = new DatabaseHelper(this); // Initialize DatabaseHelper
+        myDB = new DatabaseHelper(this);
 
-        // Reference UI elements
         editTextNom = findViewById(R.id.editTextNom);
         editTextAdresse = findViewById(R.id.editTextADRESS);
         editTextService = findViewById(R.id.editTextService);
@@ -37,12 +37,25 @@ public class HomeActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         seekBar = findViewById(R.id.seekBarPrix);
 
+        TextView textViewNom = findViewById(R.id.nomTextView);
+        TextView textViewPrenom = findViewById(R.id.prenomTextView);
+
         buttonAdd = findViewById(R.id.buttonSubmit);
         buttonViewAll = findViewById(R.id.viewAll);
         buttonAdd.setText("Submit");
 
+        Intent intent = getIntent();
 
-        // Add data on button click
+        String nom = intent.getStringExtra("nom: ");
+        String prenom = intent.getStringExtra("prenom: ");
+
+        textViewNom.setText(nom);
+        textViewPrenom.setText(prenom);
+
+
+
+
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,10 +66,10 @@ public class HomeActivity extends AppCompatActivity {
                 float prixMoyen = (float) seekBar.getProgress() / seekBar.getMax();
                 int nbEtoiles = (int) ratingBar.getRating();
 
-                // Create a Restaurant object
+
                 Restaurant restaurant = new Restaurant(0, nomRes, adresse, service, plat, prixMoyen, nbEtoiles);
 
-                // Insert the restaurant using DatabaseHelper
+
                 boolean isInserted = myDB.insertData(restaurant);
 
                 if (isInserted) {
@@ -70,36 +83,37 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        // View all restaurants on button click (implementation missing, likely starts another activity)
+
         buttonViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start DisplayDataActivity to show the data in a ListView (implementation needed)
-                Intent intent = new Intent(HomeActivity.this, RestaurantActivity.class); // Modify class name if needed
-                startActivity(intent);
+
+                Intent intent1 = new Intent(HomeActivity.this, RestaurantActivity.class);
+                startActivity(intent1);
             }
         });
-        Intent intent = getIntent();
-        if (intent.getStringExtra("restaurant_id") != null) {
+
+        Intent receivedIntent = getIntent();
+
+        if (receivedIntent.getStringExtra("restaurant_id") != null) {
             buttonAdd.setText("Edit");
-            String restaurantId= intent.getStringExtra("restaurant_id");
-            String restaurantName = intent.getStringExtra("restaurant_name");
+            String restaurantId= receivedIntent.getStringExtra("restaurant_id");
+            String restaurantName = receivedIntent.getStringExtra("restaurant_name");
             editTextNom.setText(restaurantName);
-            String restaurantAddress = intent.getStringExtra("restaurant_address");
+            String restaurantAddress = receivedIntent.getStringExtra("restaurant_address");
             editTextAdresse.setText(restaurantAddress);
-            String restaurantQualitePlats = intent.getStringExtra("restaurant_qualite_plats");
+            String restaurantQualitePlats = receivedIntent.getStringExtra("restaurant_qualite_plats");
             editTextPlat.setText(restaurantQualitePlats);
-            String restaurantQualiteService = intent.getStringExtra("restaurant_qualite_service");
+            String restaurantQualiteService = receivedIntent.getStringExtra("restaurant_qualite_service");
             editTextService.setText(restaurantQualiteService);
             buttonAdd.setOnClickListener(v -> {
                 double restaurantPrixMoyen  = (float) seekBar.getProgress() / seekBar.getMax();
                 int restaurantNbEtoiles = (int) ratingBar.getRating();
                 myDB.updateRestaurantById(Integer.parseInt(restaurantId),new Restaurant(Integer.parseInt(restaurantId),editTextNom.getText().toString(),editTextAdresse.getText().toString(),editTextPlat.getText().toString(),editTextService.getText().toString(), (float) restaurantPrixMoyen,restaurantNbEtoiles));
                 Toast.makeText(HomeActivity.this, "Restaurant Edited! click View to see changes", Toast.LENGTH_LONG).show();
-
             });
-
         }
+
     }
 
     private void clearEditTexts() {

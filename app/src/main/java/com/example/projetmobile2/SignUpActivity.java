@@ -27,18 +27,18 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                openActivity2();
+                openHomeActivity();
             }
         });
 
     }
-    public void openActivity2(){
+    public void openHomeActivity(){
         String nom = editTextNom.getText().toString();
         String prenom = editTextPrenom.getText().toString();
 
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("nom: ", nom);
-        intent.putExtra("prenom: ", prenom);
+        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+        intent.putExtra("nom: ",nom);
+        intent.putExtra("prenom: ",prenom);
         startActivity(intent);
     }
 }

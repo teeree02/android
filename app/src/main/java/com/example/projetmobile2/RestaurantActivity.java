@@ -45,19 +45,19 @@ public class RestaurantActivity extends AppCompatActivity implements CustomViewA
             }
         });
 
-        // Get data from DatabaseHelper
 
-        Cursor res = myDB.getAllData(); // Call new method
+
+        Cursor res = myDB.getAllData();
 
         restaurantNames = new ArrayList<>();
         while (res.moveToNext()) {
-            int id = res.getInt(0); // Assuming id is in COL_1 (index 0)
-            String restaurantName = res.getString(1); // Get restaurant name from COL_2 (index 1)
-            String adresseRestaurant = res.getString(2); // Get address from COL_3 (index 2)
-            String qualitePlats = res.getString(3); // Get quality of plates from COL_4 (index 3)
-            String qualiteService = res.getString(4); // Get quality of service from COL_5 (index 4)
-            float prixMoyen = res.getFloat(5); // Get average price from COL_6 (index 5)
-            int nbEtoiles = res.getInt(6); // Get number of stars from COL_7 (index 6)
+            int id = res.getInt(0);
+            String restaurantName = res.getString(1);
+            String adresseRestaurant = res.getString(2);
+            String qualitePlats = res.getString(3);
+            String qualiteService = res.getString(4);
+            float prixMoyen = res.getFloat(5);
+            int nbEtoiles = res.getInt(6);
 
             Restaurant restaurant = new Restaurant(id, restaurantName, adresseRestaurant, qualitePlats, qualiteService, prixMoyen, nbEtoiles);
             restaurantNames.add(restaurant);
@@ -78,7 +78,7 @@ public class RestaurantActivity extends AppCompatActivity implements CustomViewA
         builder.setPositiveButton("EDIT", (dialog, which) -> {
             Intent intent = new Intent(this, HomeActivity.class);
 
-            // Put restaurant data as extras in the intent
+
             intent.putExtra("restaurant_id", String.valueOf(restaurant.getId()));
             intent.putExtra("restaurant_name", restaurant.getNomRestaurant());
             intent.putExtra("restaurant_address", restaurant.getAdresseRestaurant());
